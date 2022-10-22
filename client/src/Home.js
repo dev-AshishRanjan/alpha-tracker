@@ -3,7 +3,7 @@ import {useNavigate} from 'react-router-dom';
 import { toast } from "react-toastify";
 import io from 'socket.io-client';
 
-const socket = io.connect("https://income2112144.herokuapp.com/", { transports: ['websocket', 'polling', 'flashsocket'] });
+const socket = io.connect("https://alpha-tracker.herokuapp.com/", { transports: ['websocket', 'polling', 'flashsocket'] });
 
 const Home = () => {
     // const [login,setLogin] =useState(true);
@@ -17,7 +17,7 @@ const Home = () => {
     const [storage, setStorage] = useState([]);
     useEffect(()=>{
         setLoading(true);
-        fetch("https://income2112144.herokuapp.com/").then(res=>res.json()).then(res_data=>{
+        fetch("https://alpha-tracker.herokuapp.com/").then(res=>res.json()).then(res_data=>{
             setStorage(res_data);
             setLoading(false);
         })
@@ -70,6 +70,7 @@ const Home = () => {
     }
     return (
         <div className="home">
+            <div className="loader"></div>
             {/* <video autoPlay muted loop  className="bgVid">
                 <source src={Video} type="video/mp4" />
             </video> */}

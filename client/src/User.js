@@ -10,8 +10,9 @@ import { AiFillDollarCircle,AiFillDelete } from "react-icons/ai";
 import { useSpeechContext } from '@speechly/react-client';
 import { PushToTalkButton,PushToTalkButtonContainer } from '@speechly/react-ui';
 import io from 'socket.io-client';
+import jsPDF from "jspdf";
 
-const socket = io.connect("https://income2112144.herokuapp.com/", { transports: ['websocket', 'polling', 'flashsocket'] });
+const socket = io.connect("https://alpha-tracker.herokuapp.com/", { transports: ['websocket', 'polling', 'flashsocket'] });
 
 
 
@@ -33,24 +34,33 @@ const User = () => {
     const [price,setPrice]=useState("");
     const [date,setDate]=useState("");
     const [totalBalance,setTotalBalance] = useState("");
-    const incMark=Math.round(255/11);
-    const incomeColors={Business:`rgb(0,${incMark},0)`,Investment:`rgb(0,${incMark*2},0)`,"Extra Income":`rgb(0,${incMark*3},0)`,Deposits:`rgb(0,${incMark*4},0)`,Lottery:`rgb(0,${incMark*5},0)`,Gifts:`rgb(0,${incMark*6},0)`,Salary:`rgb(0,${incMark*7},0)`,Savings:`rgb(0,${incMark*8},0)`,"Retail Income":`rgb(0,${incMark*9},0)`,Others:`rgb(0,${incMark*10},0)`};
-    const expMark=Math.round(255/12);
-    const expenseColors={Bills:`rgb(${expMark} , 0 ,0)`,Car:`rgb(${expMark*2} , 0 ,0)`,Clothes:`rgb(${expMark*3} , 0 ,0)`,Travel:`rgb(${expMark*4} , 0 ,0)`,Food:`rgb(${expMark*5} , 0 ,0)`,Shopping:`rgb(${expMark*6} , 0 ,0)`,House:`rgb(${expMark*7} , 0 ,0)`,Entertainment:`rgb(${expMark*8} , 0 ,0)`,Phone:`rgb(${expMark*9} , 0 ,0)`,Pets:`rgb(${expMark*10} , 0 ,0)`,Others:`rgb(${expMark*11} , 0 ,0)`};
+    const incMark=Math.round(255/8);
+    const incomeColors={"Poket Money":`rgb(0,${incMark},0)`,"Bank Loan":`rgb(0,${incMark*2},0)`,"Peer Loan":`rgb(0,${incMark*3},0)`,Internship:`rgb(0,${incMark*4},0)`,"Part-time Job":`rgb(0,${incMark*5},0)`,Scholarship:`rgb(0,${incMark*6},0)`,Others:`rgb(0,${incMark*7},0)`};
+    const expMark=Math.round(255/8);
+    const expenseColors={Food:`rgb(${expMark} , 0 ,0)`,Clothes:`rgb(${expMark*2} , 0 ,0)`,Stationary:`rgb(${expMark*3} , 0 ,0)`,Party:`rgb(${expMark*4} , 0 ,0)`,Travelling:`rgb(${expMark*5} , 0 ,0)`,Medical:`rgb(${expMark*6} , 0 ,0)`,Others:`rgb(${expMark*7} , 0 ,0)`};
 
     const {segment}= useSpeechContext();
 
-    const expenseCategory=["Bills","Car","Clothes","Travel","Food","Shopping","House","Entertainment","Phone","Pets","Others"];
-    const incomeCategory=["Business","Investment","Extra Income","Deposits","Lottery","Gifts","Salary","Savings","Retail Income","Others"];
+    const expenseCategory=["Food","Clothes","Stationary","Party","Travelling","Medical","Others"];
+    const incomeCategory=["Poket Money","Bank Loan","Peer Loan","Internship","Part-time Job","Scholarship","Others"];
 
 
     useEffect(() => {
         setLoading(true);
-        fetch("https://income2112144.herokuapp.com/").then(res=>res.json()).then(res_data=>{
+        fetch("https://alpha-tracker.herokuapp.com/").then(res=>res.json()).then(res_data=>{
             setStorage(res_data);
             setLoading(false);
         });
     },[])
+
+    const generatePdf=() => {
+        var doc =new jsPDF("p","pt","a4");
+        doc.html(document.querySelector(".dataCharts"),{
+            callback: function(pdf){
+                pdf.save(`${username}.pdf`);
+            }
+        })
+    }
     
     // useEffect(()=>{
     //     console.log("Oeffect");
@@ -265,11 +275,11 @@ const User = () => {
     // console.log(segment);
     return (
         <div className="user">
-
+            <div className="loader"></div>
             <div className="midCard mobile">
                 <p className="welcome">Welcome, <span>{username}</span></p>
                 <p className="balance">Total Balance: <strong>{totalBalance}</strong> USD </p>
-                <h5> <p>Try Saying :</p> Add Income for $50 in Category Salary for Monday</h5>
+                <h5> <p>Try Saying :</p> Add Income for $50 in Category Scholarship for Monday</h5>
                 <div className="speechly_input">
                     {segment && segment.words.map((w)=>w.value).join(" ")}
                 </div>
@@ -298,22 +308,6 @@ const User = () => {
                         <input type="date" value={date} onChange={(e)=>setDate(e.target.value)} />
                     </div>
                     <button onClick={handleFormData}>Create</button>
-                </div>
-                <div className="dataCharts">
-                    {
-                        data && data.map((element)=>{
-                            return(
-                                <div className="dataChart" key={element.id}>
-                                    {element.type ==="Income"? <div className="icon_dollar_income"><AiFillDollarCircle/></div> :<div className="icon_dollar_expense"><AiFillDollarCircle/></div>}
-                                    <div className="details">
-                                        <h3>{element.category}</h3>
-                                        <p>${element.price} &nbsp; {element.date}</p>
-                                    </div>
-                                    <AiFillDelete className="delete" onClick={()=>handleDelete(element.id)}/>
-                                </div>
-                            )
-                        })
-                    }
                 </div>
             </div>
 
@@ -333,7 +327,7 @@ const User = () => {
             <div className="midCard desktop">
                 <p className="welcome">Welcome, <span>{username}</span></p>
                 <p className="balance">Total Balance: <strong>{totalBalance}</strong> USD </p>
-                <h5> <p>Try Saying :</p> Add Income for $50 in Category Salary for Monday</h5>
+                <h5> <p>Try Saying :</p> Add Income for $50 in Category Scholarship for Monday</h5>
                 <div className="speechly_input">
                     {segment && segment.words.map((w)=>w.value).join(" ")}
                 </div>
@@ -363,23 +357,9 @@ const User = () => {
                     </div>
                     <button onClick={handleFormData}>Create</button>
                 </div>
-                <div className="dataCharts">
-                    {
-                        data && data.map((element)=>{
-                            return(
-                                <div className="dataChart" key={element.id}>
-                                    {element.type ==="Income"? <div className="icon_dollar_income"><AiFillDollarCircle/></div> :<div className="icon_dollar_expense"><AiFillDollarCircle/></div>}
-                                    <div className="details">
-                                        <h3>{element.category}</h3>
-                                        <p>${element.price} &nbsp; {element.date}</p>
-                                    </div>
-                                    <AiFillDelete className="delete" onClick={()=>handleDelete(element.id)}/>
-                                </div>
-                            )
-                        })
-                    }
-                </div>
             </div>
+
+            
 
             {
                 expenseData &&  <div className="sideCard expenseCard">
@@ -393,6 +373,26 @@ const User = () => {
                 </div>
             </div>
             }
+
+            <div className="dataCharts">
+                <div className="pdf">
+                    <button onClick={()=>generatePdf()}>Generate Pdf</button>
+                </div>
+                {
+                    data && data.map((element)=>{
+                        return(
+                            <div className="dataChart" key={element.id}>
+                                {element.type ==="Income"? <div className="icon_dollar_income"><AiFillDollarCircle/></div> :<div className="icon_dollar_expense"><AiFillDollarCircle/></div>}
+                                <div className="details">
+                                    <h3>{element.category}</h3>
+                                    <p>${element.price} &nbsp; {element.date}</p>
+                                </div>
+                                <AiFillDelete className="delete" onClick={()=>handleDelete(element.id)}/>
+                            </div>
+                        )
+                    })
+                }
+            </div>
 
             <PushToTalkButtonContainer >
                 <PushToTalkButton onClick={window.scrollTo(0,0)}/>

@@ -15,7 +15,7 @@ app.use(cors());
 
 const io= new Server(server,{
     cors: {
-        origin: 'https://income144.netlify.app',
+        origin: 'https://alpha-tracker.netlify.app',
         method: ["GET","POST"],
         credentials: true
     },

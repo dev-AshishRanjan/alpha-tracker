@@ -8,20 +8,38 @@
 }
 
 
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Titillium Web', cursive;
     z-index: 2;
     transition: all 0.1s ease-in;
+    user-select: none;
+}
+
+::-webkit-scrollbar {
+    width: 1rem;
+}
+
+::-webkit-scrollbar-thumb {
+    background: black;
+    border-radius: 1rem;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: gray;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.5);
 }
 
 
 // home
 
-.home{
-    $color:rgb(137, 255, 126);
+.home {
+    $color: rgb(137, 255, 126);
     @include flexCenter;
     flex-direction: column;
     height: 100vh;
@@ -29,14 +47,14 @@
     background: #000;
     color: #fff;
     overflow: hidden;
-    background: linear-gradient(to top,rgba(0,0,0,0.5),rgba(0, 0, 0, 0.5)) ,url("https://picsum.photos/1000") no-repeat center center / cover;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/login.jpg") no-repeat center center / cover;
     // z-index: 0;
 
     .loginCard {
         border: 1.5px solid $color;
         backdrop-filter: blur(0.5rem);
-        border-radius:1rem;
-        padding:1.5rem;
+        border-radius: 1rem;
+        padding: 1.5rem;
         // height: 20rem;
         display: flex;
         align-items: left;
@@ -48,22 +66,22 @@
         transition: all 0.5s linear;
         box-shadow: 4px 4px 10px rgb(35, 35, 35);
 
-        h2{
+        h2 {
             color: white;
             font-size: 2.5rem;
-            padding-bottom:1rem;
+            padding-bottom: 1rem;
             margin-bottom: 1rem;
             border-bottom: 1px solid $color;
             // -webkit-text-stroke-width: 0.01px;
             // -webkit-text-stroke-color: rgb(255, 201, 102);
         }
 
-        form{
+        form {
             margin-top: 3rem;
             @include flexCenter;
             flex-direction: column;
 
-            input{
+            input {
                 margin-bottom: 1rem;
                 padding: 0.5rem;
                 width: 15rem;
@@ -72,8 +90,9 @@
                 border: none;
                 font-size: 1rem;
             }
-            button{
-                padding:0.5rem 1rem;
+
+            button {
+                padding: 0.5rem 1rem;
                 margin: 1rem;
                 background: orange;
                 color: white;
@@ -82,227 +101,394 @@
                 cursor: pointer;
                 font-size: 1rem;
 
-                &:hover{
+                &:hover {
                     background-color: white;
                     color: orange;
                 }
             }
-            .check_box>input{
+
+            .check_box>input {
                 width: 2rem;
             }
         }
-        p{
+
+        p {
             padding-top: 0.5rem;
             border-top: 1px solid $color;
-            margin-top:2rem;
+            margin-top: 2rem;
 
-            span{
+            span {
                 color: orange;
                 cursor: pointer;
 
-                &:hover{
+                &:hover {
                     color: wheat;
                 }
             }
         }
     }
-    .signupCard{
-        $color2:rgb(163, 163, 255) ;
+
+    .signupCard {
+        $color2: rgb(163, 163, 255);
         position: absolute;
         @extend .loginCard;
-        transform:rotateY(180deg) ;
+        transform: rotateY(180deg);
         border: 1.5px solid $color2 ;
-        h2{
-            
+
+        h2 {
+
             border-bottom: 1px solid $color2;
         }
-        p{
+
+        p {
             border-top: 1px solid $color2;
         }
     }
 }
+
 // @media (max-width: 600px){
 
 // }
 
 // user
 
-.user{
+.user {
     @include flexCenter;
-    justify-content:space-evenly !important;
+    flex-wrap: wrap;
+    justify-content: space-evenly !important;
     min-height: 100vh;
-    min-width: 100vw;
-    background:linear-gradient(to top,rgba(0,0,0,0.5),rgba(0, 0, 0, 0.5)) ,url("../images/clock-2696234_1920.jpg") no-repeat center center / cover;
+    // width: 100vw;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/main.jpg") no-repeat center center / cover;
     color: orange;
     background-attachment: fixed;
+    // position: absolute;
+    // top: 0;
+    // left: 0;
+    overflow-x: hidden;
 
-    .sideCard{
+    ::-webkit-scrollbar {
+        width: 1rem;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: black;
+        border-radius: 1rem;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: gray;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .sideCard {
         @include flexCenter;
         flex-direction: column;
-        align-items:flex-start !important;
-        background: rgba(255, 255, 255, 0.9);
+        align-items: flex-start !important;
+        // background: rgba(255, 255, 255, 0.9);
+        background: rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(0.5rem);
+        box-shadow: 4px 4px 10px rgb(35, 35, 35);
         padding: 1rem;
         border-radius: 1rem;
-        h2{
+        margin: 1rem 1rem;
+        // color: #fff;
+
+        h2 {
             font-size: 2rem;
             margin-bottom: 1.5rem;
         }
 
-        .icon{
-            width:90%;
+        .icon {
+            width: 90%;
             @include flexCenter;
-            justify-content: space-between!important;
+            justify-content: space-between !important;
             font-size: 2rem;
             border-bottom: 1px solid black;
-            svg{
+
+            svg {
                 border-radius: 0.3rem;
                 border: 1.5px solid rgb(63, 81, 181);
             }
         }
-        
-        .chart{
-            canvas{
+
+        .chart {
+            canvas {
                 height: 15rem;
-                width:15rem !important;
+                width: 15rem !important;
             }
         }
     }
-    .incomeCard{
-        border-bottom: 16px solid green;
+
+    .incomeCard {
+        // border-bottom: 16px solid green;
+        border: 1.5px solid rgb(0, 255, 0);
+
+        .icon {
+            border-bottom: 1px solid rgb(0, 255, 0);
+        }
     }
-    .expenseCard{
-        border-bottom: 16px solid red;
+
+    .expenseCard {
+        // border-bottom: 16px solid red;
+        border: 1.5px solid rgb(163, 163, 255);
+
+        .icon {
+            border-bottom: 1px solid rgb(163, 163, 255);
+        }
     }
-    .midCard{
-        color: black!important;
+
+    .midCard {
+        margin-top: 2rem;
+        color: black !important;
         @include flexCenter;
         flex-direction: column;
-        background: rgba(255, 255, 255, 0.9);
+        // background: rgba(255, 255, 255, 0.9);
+        background: rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(0.5rem);
+        border: 1.5px solid orange;
+        box-shadow: 4px 4px 10px rgb(35, 35, 35);
         padding: 1rem;
         border-radius: 1rem;
         max-width: 23rem;
+        color: #fff;
+        margin: 1rem 1rem;
 
-        .welcome{
+        .welcome {
             color: orange;
-            font-size:1.5rem;
+            font-size: 1.5rem;
             margin-bottom: 2rem;
-            span{
+
+            span {
                 text-decoration: underline;
             }
         }
-        .balance{
+
+        .balance {
             margin-bottom: 1rem;
+            color: #fff;
         }
-        h5{
+
+        h5 {
             font-weight: 100;
+            color: #fff;
         }
-        .speechly_input{
+
+        .speechly_input {
             margin: 1rem 0;
             max-width: 90%;
-            background:white;
+            background: gray;
             border-radius: 0.3rem;
             padding: 0.5rem;
             font-size: 0.8rem;
             color: orange;
         }
-        h5>p{
+
+        h5>p {
             text-align: center;
         }
-        .form{
-            border-top: 1px solid black;
-            border-bottom: 1px solid black;
+
+        .form {
+            border-top: 1px solid orange;
+            // border-bottom: 1px solid black;
             margin: 1rem 0;
             @include flexCenter;
             flex-direction: column;
-            .line1,.line2{
+
+            .line1,
+            .line2 {
                 @include flexCenter;
                 justify-content: space-between;
                 width: 100%;
 
-                input,select{
+                input,
+                select {
                     border: none;
                     height: 2rem;
-                    border-bottom: 1px solid black;
+                    border-bottom: 1px solid white;
                     outline: none;
-                    padding: 0.5rem 1rem;
+                    padding: 0.2rem 1rem;
                     margin: 1rem 0.5rem;
                     width: 45%;
                     background: transparent;
                     border-radius: 0.2rem;
+                    color: #fff;
                 }
-                select>option{
-                    border:none;
+
+                select>option {
+                    border: none;
                     padding: 1rem;
                     margin-bottom: 1rem;
+                    color: black;
                 }
             }
-            button{
+
+            button {
                 border: none;
                 padding: 0.5rem 1rem;
                 margin: 1rem 0.5rem;
                 width: 45%;
                 background: orange;
-                color:white;
+                color: white;
                 border-radius: 0.2rem;
                 cursor: pointer;
-                &:hover{
+
+                &:hover {
                     background: white;
-                    color:orange;
+                    color: orange;
                 }
             }
         }
-        .dataCharts{
-            overflow-y: scroll;
-            overflow-x: hidden;
-            height: 10rem;
-            width: 100%;
 
-            .dataChart{
-                margin: 1.5rem;
-                @include flexCenter;
-                width: 90%;
-                justify-content: space-between;
 
-                .icon_dollar_income{
-                    font-size:2rem;
-                    color:green;
-                }
-                .icon_dollar_expense{
-                    font-size:2rem;
-                    color:red;
-                }
-                .delete{
-                    color: red;
-                    font-size:1.2rem;
-                    cursor: pointer;
-                }
-                .details{
-                    margin-right: 5rem;;
+    }
+
+    .dataCharts {
+        overflow-y: auto;
+        overflow-x: hidden;
+        max-height: 20rem;
+        width: 20rem;
+        flex-direction: column;
+        // background: rgba(255, 255, 255, 0.9);
+        background: rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(0.5rem);
+        border: 1.5px solid orange;
+        box-shadow: 4px 4px 10px rgb(35, 35, 35);
+        padding: 1rem;
+        border-radius: 1rem;
+        margin: 1rem 1rem;
+
+        .dataChart {
+            margin: 1.5rem;
+            @include flexCenter;
+            width: 90%;
+            justify-content: space-between;
+            border-bottom: 1px solid #fff;
+
+            .icon_dollar_income {
+                font-size: 2rem;
+                color: green;
+                margin-right: 0.3rem;
+            }
+
+            .icon_dollar_expense {
+                font-size: 2rem;
+                color: red;
+                margin-right: 0.3rem;
+            }
+
+            .delete {
+                color: red;
+                font-size: 1.2rem;
+                cursor: pointer;
+            }
+
+            .details {
+                margin-right: 5rem;
+            }
+        }
+
+        .pdf {
+            text-align: center;
+            // position: sticky;
+            // top: 0;
+            // z-index: 10;
+
+            button {
+                border: none;
+                padding: 0.5rem 1rem;
+                margin: 1rem 0.5rem;
+                // width: 45%;
+                background: orange;
+                color: white;
+                border-radius: 0.2rem;
+                cursor: pointer;
+
+                &:hover {
+                    background: white;
+                    color: orange;
                 }
             }
         }
     }
-    .desktop{
+
+
+    .desktop {
         display: flex !important;
     }
-    .mobile{
+
+    .mobile {
         display: none !important;
     }
 }
-@media (max-width:600px){
-    .user{
+
+@media (min-width: 900px) {}
+
+@media (max-width:600px) {
+    .user {
         flex-direction: column;
-        .desktop{
-            display:none!important;
+
+        .desktop {
+            display: none !important;
         }
-        .mobile{
-            display:flex !important;
+
+        .mobile {
+            display: flex !important;
         }
     }
-    .sideCard,.midCard{
-        margin-top:2rem;
+
+    .sideCard,
+    .midCard {
+        margin-top: 2rem;
         width: 20rem;
         margin-bottom: 2rem;
     }
-    
+
+}
+
+.loader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 20;
+    background: orange;
+    animation: animateLoad 3s linear forwards;
+    overflow: hidden;
+}
+
+@keyframes animateLoad {
+    0% {
+        left: 0;
+    }
+
+    30% {
+        top: 110vh;
+        left: 0;
+        height: 100vw;
+        width: 100vw;
+        border-radius: 50%;
+    }
+
+    60% {
+        top: 50vh;
+        right: 20vw;
+        height: 20vw;
+        width: 20vw;
+        border-radius: 50%;
+    }
+
+    100% {
+        top: -20vh;
+        left: 50vw;
+        height: 5vw;
+        width: 5vw;
+        border-radius: 50%;
+    }
 }
